@@ -6,10 +6,10 @@
 package reclamGui;
 
 import entities.Etat;
-import org.apache.commons.lang.StringUtils;
 import entities.Reclamation;
 import entities.TypeRec;
 import entities.User;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
@@ -18,24 +18,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.regex.Matcher;
-import static javafx.application.ConditionalFeature.FXML;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import tools.DataSource;
-import java.util.regex.Pattern;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -44,7 +45,6 @@ import javafx.scene.control.Alert.AlertType;
 public class AjouterReclamationController implements Initializable {
         
     
-    private Connection con;
     private Statement statement;
     private PreparedStatement prepare;
     private ResultSet result;
@@ -52,17 +52,29 @@ public class AjouterReclamationController implements Initializable {
     private Button EXIT;
     
   
+    @FXML
     private ComboBox<TypeRec> combobox;
+    @FXML
     private TextArea description;
 
    
 
     
+    @FXML
     private TextField titre;
+    Connection cnx;
+    @FXML
+    private Button Home;
+    @FXML
+    private Button send;
+    @FXML
+    private Button OFFRES;
+    @FXML
+    private Button LOGOUT;
     public User getUserById(int iduser) {
     String sql = "SELECT * FROM user WHERE iduser = ?";
 
-    try (PreparedStatement statement = con.prepareStatement(sql)) {
+    try (PreparedStatement statement = cnx.prepareStatement(sql)) {
         statement.setInt(1, iduser);
         ResultSet resultSet = statement.executeQuery();
 
@@ -72,8 +84,8 @@ public class AjouterReclamationController implements Initializable {
             return user;
         }
     } catch (SQLException e) {
-        e.printStackTrace();
         // Gérez les exceptions SQL ici, affichez des messages d'erreur si nécessaire
+        
     }
 
     return null;
@@ -88,8 +100,9 @@ public class AjouterReclamationController implements Initializable {
 
 
    
+    @FXML
   public void SEND() {
-    con = DataSource.getinstance().getCon();
+        this.cnx = DataSource.getInstance().getConnection();
 
     // Récupération du titre, de la description et du ComboBox
     String titreText = titre.getText();
@@ -160,7 +173,7 @@ public class AjouterReclamationController implements Initializable {
         Etat etat = Etat.NON_TRAITE;
         reclamation.setEtat(etat);
 
-        PreparedStatement prepare = con.prepareStatement(sql);
+        PreparedStatement prepare = cnx.prepareStatement(sql);
         prepare.setInt(1, reclamation.getIduser());  // Paramètre pour l'ID de l'utilisateur
         prepare.setString(2, reclamation.getTitre());
         prepare.setString(3, reclamation.getDescription());
@@ -217,6 +230,7 @@ public class AjouterReclamationController implements Initializable {
     }
 private String typeData[] = {"RECLAMATION", "INCIDENT", "AVIS"};
 
+    @FXML
     public void comboBox() {
     List<TypeRec> list = new ArrayList<>();
 
@@ -238,6 +252,38 @@ private String typeData[] = {"RECLAMATION", "INCIDENT", "AVIS"};
     @Override
     public void initialize(URL url, ResourceBundle rb) {
          comboBox();
+    }
+@FXML
+    public void Home(ActionEvent event) throws IOException {
+        if (Home.isFocused()) {
+        Parent view4 = FXMLLoader.load(getClass().getResource("HomeUser.fxml"));
+        Scene scene4 = new Scene(view4);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene4);
+        window.show();
+        }
     }    
+
+    @FXML
+   private void OFFRES(ActionEvent event) throws IOException {
+        if (OFFRES.isFocused()) {
+        Parent view4 = FXMLLoader.load(getClass().getResource("ChoixOffres.fxml"));
+        Scene scene4 = new Scene(view4);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene4);
+        window.show();
+        }
     
+}
+
+    @FXML
+    private void LOGOUT(ActionEvent event) throws IOException {
+        if (LOGOUT.isFocused()) {
+        Parent view4 = FXMLLoader.load(getClass().getResource("Signin.fxml"));
+        Scene scene4 = new Scene(view4);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene4);
+        window.show();
+        }
+    }
 }

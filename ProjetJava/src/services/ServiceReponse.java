@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import tools.DataSource;
 
 /**
  *
@@ -22,11 +23,11 @@ import java.util.List;
 public class ServiceReponse implements IServiceReponse<Reponse>{
 private static ServiceReponse instance;
 PreparedStatement preparedstatement;
-Connection con;
  Statement ste;
+ Connection cnx;
 
 public ServiceReponse(){
-    con =tools.DataSource.getinstance().getCon();
+        this.cnx = DataSource.getInstance().getConnection();
     
     
 }
@@ -42,7 +43,7 @@ public static ServiceReponse getInstance(){
     public void ajouter(Reponse rec) throws SQLException {
          try {
             String req = "INSERT INTO reponse(idrep,id,contenu)values(?,?,?)";
-            PreparedStatement pre = con.prepareStatement(req);
+            PreparedStatement pre = cnx.prepareStatement(req);
             pre.setInt(1,rec.getIdrep() );
             pre.setInt(2,rec.getR().getId());
             pre.setString(3,rec.getContenu() );
@@ -59,7 +60,7 @@ public static ServiceReponse getInstance(){
     @Override
     public void modifier(Reponse rec) throws SQLException {
          String req = "update reponse set  idrec=? ,contenu=?  where idrep=?";
-        PreparedStatement ps = con.prepareStatement(req);
+        PreparedStatement ps = cnx.prepareStatement(req);
 
         ps.setInt(1, rec.getR().getId());
         ps.setString(2,rec.getContenu());
@@ -73,7 +74,7 @@ public static ServiceReponse getInstance(){
     public void supprimer(int idrep) throws SQLException {
         try{
         String req = "DELETE FROM reponse WHERE idrep = ?";
-         PreparedStatement ps = con.prepareStatement(req);
+         PreparedStatement ps = cnx.prepareStatement(req);
          ps.setInt(1, idrep);
     
           ps.executeUpdate();
@@ -93,21 +94,20 @@ public static ServiceReponse getInstance(){
             + "JOIN reclamation rec ON rec.id = rep.idrec ";
     
     try {
-        ste = con.createStatement();
+        ste = cnx.createStatement();
         ResultSet rs = ste.executeQuery(req);
         while (rs.next()) {
             int idrep = rs.getInt("idrep");
             String contenu = rs.getString("contenu");
             int reclamation_id = rs.getInt("reclamation_id");
-
+            String r ="medaziz.ayed@esprit.tn";
             // Créez des objets Reclamation et Reponse en utilisant les colonnes sélectionnées
             Reclamation reclamation = new Reclamation(reclamation_id);
-            Reponse reponse = new Reponse(idrep, reclamation, contenu);
+            Reponse reponse = new Reponse(idrep, reclamation, contenu,r);
 
             listReponse.add(reponse);
         }
     } catch (SQLException e) {
-        e.printStackTrace();
     }
 
     return listReponse;

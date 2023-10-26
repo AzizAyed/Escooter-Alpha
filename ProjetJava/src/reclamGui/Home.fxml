@@ -17,28 +17,28 @@
          <children>
             <AnchorPane layoutX="-6.0" layoutY="-9.0" prefHeight="582.0" prefWidth="206.0" styleClass="navbar" stylesheets="@design.css">
                <children>
-                  <Circle fill="#656d73" layoutX="103.0" layoutY="103.0" radius="89.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="WHITE" layoutX="103.0" layoutY="103.0" radius="89.0" stroke="BLACK" strokeType="INSIDE" />
                   <Button layoutX="18.0" layoutY="225.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" styleClass="navbutton" stylesheets="@design.css" text="           Home" textFill="#fffefe">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="18.0" layoutY="298.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" styleClass="navbutton" stylesheets="@design.css" text="        Reservation" textFill="#fffefe">
+                  <Button fx:id="GDS" layoutX="18.0" layoutY="298.0" mnemonicParsing="false" onAction="#GDS" prefHeight="40.0" prefWidth="162.0" styleClass="navbutton" stylesheets="@design.css" text="            GDS" textFill="#fffefe">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="18.0" layoutY="372.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" styleClass="navbutton" stylesheets="@design.css" text="           Offres" textFill="#fffefe">
+                  <Button fx:id="OFFRES" layoutX="18.0" layoutY="372.0" mnemonicParsing="false" onAction="#OFFRES" prefHeight="40.0" prefWidth="162.0" styleClass="navbutton" stylesheets="@design.css" text="           Offres" textFill="#fffefe">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="19.0" layoutY="446.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" styleClass="navbutton" stylesheets="@design.css" text="          Support" textFill="#fffefe">
+                  <Button fx:id="BACKRECL" layoutX="19.0" layoutY="446.0" mnemonicParsing="false" onAction="#BACKRECL" prefHeight="40.0" prefWidth="162.0" styleClass="navbutton" stylesheets="@design.css" text="          Support" textFill="#fffefe">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="19.0" layoutY="518.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="162.0" styleClass="navbutton" stylesheets="@design.css" text="          Logout" textFill="#fffefe">
+                  <Button fx:id="LOGOUT" layoutX="19.0" layoutY="518.0" mnemonicParsing="false" onAction="#LOGOUT" prefHeight="40.0" prefWidth="162.0" styleClass="navbutton" stylesheets="@design.css" text="          Logout" textFill="#fffefe">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -51,8 +51,8 @@
                         <Image url="@../image/360_F_451269306_U5VVjfXzU2OZLyaLOKmkI73SCwBcjgvF-removebg-preview%20(1).png" />
                      </image>
                   </ImageView>
-                  <FontAwesomeIcon fill="#fffbfb" glyphName="TICKET" layoutX="22.0" layoutY="330.0" size="2em" text="" />
                   <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="26.0" layoutY="402.0" size="2em" />
+                  <FontAwesomeIcon fill="#fffbfb" glyphName="TICKET" layoutX="22.0" layoutY="330.0" size="2em" text="" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="200.0" layoutY="41.0" prefHeight="130.0" prefWidth="620.0" styleClass="card-top" stylesheets="@design.css">
@@ -62,6 +62,12 @@
                         <Image url="@../image/istockphoto-1160838875-612x612-removebg-preview%20(1).png" />
                      </image>
                   </ImageView>
+                  <Button fx:id="GDC" layoutX="3.0" layoutY="87.0" mnemonicParsing="false" onAction="#GDC" prefHeight="40.0" prefWidth="162.0" styleClass="navbutton" stylesheets="@design.css" text="          GDC" textAlignment="CENTER" textFill="#fffefe">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <FontAwesomeIcon fill="WHITE" glyphName="WRENCH" layoutX="14.0" layoutY="117.0" size="2em" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="200.0" layoutY="-1.0" prefHeight="42.0" prefWidth="620.0">
@@ -78,7 +84,7 @@
                         <Image url="@../image/Capture%20d'écran%202023-10-25%20163650.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="118.0" text="Bienvenue à Escooter">
+                  <Label layoutX="82.0" text="Bienvenue Chez Admin">
                      <font>
                         <Font name="System Bold Italic" size="39.0" />
                      </font>

@@ -28,6 +28,8 @@ public class Signin_main extends Application {
         stage.show();
 
         Button login_signup = new Button("Sign Up");
+        
+        
         login_signup.setOnAction((ActionEvent event) -> {
             try {
                 Parent signupRoot = FXMLLoader.load(getClass().getResource("signup.fxml"));

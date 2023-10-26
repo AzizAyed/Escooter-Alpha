@@ -22,7 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import tn.edu.esprit.tools.DataSource;
+import tools.DataSource;
 
 public class ForgetpasswordController implements Initializable {
     @FXML

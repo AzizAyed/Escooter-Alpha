@@ -11,15 +11,17 @@ import entities.User;
 import entities.TypeRec;
 import entities.Etat;
 import java.sql.Statement;
+import tools.DataSource;
+
 
 public class ServiceReclamation implements IServiceReclamation<Reclamation> {
     private static ServiceReclamation instance;
-    private Connection con;
+    Connection cnx;
     private PreparedStatement preparedstatement;
     private Statement ste;
 
     public ServiceReclamation() {
-        con = tools.DataSource.getinstance().getCon();
+        this.cnx = DataSource.getInstance().getConnection();
     }
 
     public static ServiceReclamation getInstance() {
@@ -32,7 +34,7 @@ public class ServiceReclamation implements IServiceReclamation<Reclamation> {
     public void ajouter(Reclamation r) {
         try {
             String req = "INSERT INTO reclamation (id, titre, description, date, iduser, etat, typerec) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement pre = con.prepareStatement(req);
+            PreparedStatement pre = cnx.prepareStatement(req);
             pre.setInt(1, r.getId());
             pre.setString(2, r.getTitre());
             pre.setString(3, r.getDescription());
@@ -46,10 +48,11 @@ public class ServiceReclamation implements IServiceReclamation<Reclamation> {
         }
     }
 
+    @Override
     public void modifier(Reclamation r) {
         try {
             String req = "UPDATE reclamation SET titre=?, description=?, date=?, iduser=?, etat=?, typerec=? WHERE id=?";
-            PreparedStatement ps = con.prepareStatement(req);
+            PreparedStatement ps = cnx.prepareStatement(req);
             ps.setString(1, r.getTitre());
             ps.setString(2, r.getDescription());
             ps.setDate(3, r.getDate());
@@ -63,10 +66,11 @@ public class ServiceReclamation implements IServiceReclamation<Reclamation> {
         }
     }
 
+    @Override
     public void supprimer(int id) {
         try {
             String req = "DELETE FROM reclamation WHERE id = ?";
-            PreparedStatement ps = con.prepareStatement(req);
+            PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, id);
             ps.executeUpdate();
         } catch (SQLException ex) {
@@ -74,15 +78,17 @@ public class ServiceReclamation implements IServiceReclamation<Reclamation> {
         }
     }
 
+    @Override
     public Reclamation getOne(Reclamation r) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
     public List<Reclamation> getAll() {
         List<Reclamation> listReclamation = new ArrayList<>();
         String req = "SELECT rec.id AS reclamation_id, rec.description, rec.iduser, rec.titre, rec.date, rec.etat, rec.typerec FROM reclamation rec JOIN user u ON rec.iduser = u.iduser";
         try {
-            PreparedStatement ps = con.prepareStatement(req);
+            PreparedStatement ps = cnx.prepareStatement(req);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User(rs.getInt("iduser"));

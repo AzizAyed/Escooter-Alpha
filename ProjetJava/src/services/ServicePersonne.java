@@ -16,7 +16,6 @@ public class ServicePersonne implements IService<Personne> {
         this.cnx = DataSource.getInstance().getConnection();
     }
 
-    @Override
     public void ajouter(Personne t) {
         try {
             String req = "INSERT INTO personne (nom, prenom, cin, email) VALUES (?, ?, ?, ?)";
@@ -32,7 +31,6 @@ public class ServicePersonne implements IService<Personne> {
         }
     }
 
-    @Override
     public void modifier(Personne t) {
         try {
             String req = "UPDATE personne SET nom = ?, prenom = ?, email = ? WHERE cin = ?";
@@ -66,7 +64,6 @@ public void supprimer(String nom, String prenom) {
 }
 
 
-    @Override
     public Personne getOne(Personne t) {
         try {
             String req = "SELECT * FROM personne WHERE cin = ?";
@@ -129,12 +126,10 @@ public void supprimer(String nom, String prenom) {
         return personnes;
     }
 
-    @Override
     public List<Personne> getAll(Personne t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
     public void supprimer(int id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

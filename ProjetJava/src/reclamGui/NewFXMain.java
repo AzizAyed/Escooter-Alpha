@@ -1,46 +1,49 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package reclamGui;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-/**
- *
- * @author med amine nsir
- */
 public class NewFXMain extends Application {
-    
-    private double x = 0 ;
-    private double y = 0;
+
+    private double xOffset = 0;
+    private double yOffset = 0;
+
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(NewFXMain.class.getResource("Home.fxml"));
-        Parent root = fxmlLoader.load();
+    
+public void start(Stage stage) {
+    try {
+        Parent root = FXMLLoader.load(getClass().getResource("Home.fxml"));
         Scene scene = new Scene(root);
 
-        
-
+        // Make the stage transparent
         stage.initStyle(StageStyle.TRANSPARENT);
+        stage.initStyle(StageStyle.UNDECORATED); // Set the undecorated style
         stage.setTitle("mybike!");
         stage.setScene(scene);
+
+        // Set event handlers for moving the window
+        root.setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            stage.setX(event.getScreenX() - xOffset);
+            stage.setY(event.getScreenY() - yOffset);
+        });
+
         stage.show();
+    } catch (IOException e) {
     }
+}
+
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
     }
 }

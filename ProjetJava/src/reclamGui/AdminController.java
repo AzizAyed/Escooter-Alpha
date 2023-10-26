@@ -40,7 +40,7 @@ public class AdminController implements Initializable {
     @FXML
     private Button deletebtn;
     @FXML
-    private Button backbtn;
+    private Button HOME;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -126,12 +126,22 @@ public class AdminController implements Initializable {
         alert.showAndWait();
     }
     
-   /* @FXML
-    void backbtn(ActionEvent event) throws IOException {
-        Parent view4 = FXMLLoader.load(getClass().getResource("Signin.fxml"));
+   void backbtn(ActionEvent event) throws IOException {
+        Parent view4 = FXMLLoader.load(getClass().getResource("Home.fxml"));
         Scene scene4 = new Scene(view4);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene4);
         window.show();
-    }*/
+    }
+
+    @FXML
+    private void Home(ActionEvent event) throws IOException {
+                if (HOME.isFocused()) {
+        Parent view4 = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        Scene scene4 = new Scene(view4);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene4);
+        window.show();
+        }
+}
 }

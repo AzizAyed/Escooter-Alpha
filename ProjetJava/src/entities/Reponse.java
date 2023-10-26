@@ -5,6 +5,8 @@
  */
 package entities;
 
+import javafx.scene.control.TableColumn;
+
 /**
  *
  * @author med amine nsir
@@ -22,6 +24,10 @@ public class Reponse {
 
     public Reponse() {
         
+    }
+
+    public Reponse(int idrep, Reclamation reclamation, String contenu, String r) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
    
@@ -72,6 +78,14 @@ public class Reponse {
 
     public void setIdrec(int idReclamation) {
         
+    }
+
+    public void setEmail(TableColumn<Reclamation, String> email) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setEmail(String email) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
    

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="reclamGui.ModOffController">
+    <children>
+      <AnchorPane prefHeight="571.0" prefWidth="200.0" styleClass="navbar" stylesheets="@design.css">
+         <children>
+            <Circle fill="WHITE" layoutX="100.0" layoutY="88.0" radius="88.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button fx:id="HOME" layoutX="18.0" layoutY="219.0" mnemonicParsing="false" onAction="#Home" prefHeight="40.0" prefWidth="158.0" styleClass="navbutton" stylesheets="@design.css" text="          Home" textFill="#fafafa">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="GDS" layoutX="18.0" layoutY="290.0" mnemonicParsing="false" onAction="#GDS" prefHeight="40.0" prefWidth="158.0" styleClass="navbutton" stylesheets="@design.css" text="          GDS" textFill="#fafafa">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="18.0" layoutY="362.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="158.0" styleClass="navbutton" stylesheets="@design.css" text="           Offres" textFill="#fafafa">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="BACKRECL" layoutX="18.0" layoutY="436.0" mnemonicParsing="false" onAction="#BACKRECL" prefHeight="40.0" prefWidth="158.0" styleClass="navbutton" stylesheets="@design.css" text="        Support" textFill="#fafafa">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="LOGOUT" layoutX="18.0" layoutY="511.0" mnemonicParsing="false" onAction="#LOGOUT" prefHeight="40.0" prefWidth="158.0" styleClass="navbutton" stylesheets="@design.css" text="      Logout" textFill="#fafafa">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <FontAwesomeIcon fill="#fffdfd" glyphName="HOME" layoutX="26.0" layoutY="250.0" size="2em" text="" />
+            <FontAwesomeIcon fill="#fffbfb" glyphName="TICKET" layoutX="23.0" layoutY="322.0" size="2em" text="" />
+            <FontAwesomeIcon fill="WHITE" glyphName="CALENDAR" layoutX="26.0" layoutY="392.0" size="2em" text="" />
+            <FontAwesomeIcon fill="#fafafa" glyphName="SUPPORT" layoutX="27.0" layoutY="468.0" size="2em" text="" />
+            <FontAwesomeIcon fill="#f4f4f4" glyphName="CLOSE" layoutX="30.0" layoutY="541.0" size="2em" />
+            <ImageView fitHeight="130.0" fitWidth="150.0" layoutX="25.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/358180990_1005331757566798_5870715155653772160_n-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="200.0" layoutY="58.0" prefHeight="112.0" prefWidth="638.0" styleClass="card-top" stylesheets="@design.css">
+         <children>
+            <ImageView fitHeight="119.0" fitWidth="127.0" layoutX="513.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/istockphoto-1160838875-612x612-removebg-preview%20(1).png" />
+               </image>
+            </ImageView>
+         </children></AnchorPane>
+      <AnchorPane layoutX="200.0" prefHeight="58.0" prefWidth="638.0">
+         <children>
+            <Button fx:id="exit" layoutX="569.0" layoutY="12.0" mnemonicParsing="false" onAction="#EXIT" prefHeight="34.0" prefWidth="66.0" styleClass="exit" stylesheets="@design.css" />
+            <FontAwesomeIcon fill="WHITE" glyphName="CLOSE" layoutX="591.0" layoutY="39.0" size="2em" text="" wrappingWidth="28.628522872924805" />
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tabOff" layoutX="374.0" layoutY="215.0" onMouseClicked="#SelectAff" prefHeight="261.0" prefWidth="450.0">
+        <columns>
+          <TableColumn fx:id="colNom" prefWidth="178.0" text="Nom" />
+            <TableColumn fx:id="colPrix" prefWidth="132.0" text="Prix" />
+            <TableColumn fx:id="colDuree" prefWidth="139.0" text="Durée (mois)" />
+        </columns>
+      </TableView>
+      <Button layoutX="783.0" layoutY="494.0" mnemonicParsing="false" onAction="#RechercherOff" prefHeight="24.0" prefWidth="29.0" styleClass="navbutton" stylesheets="@design.css" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIcon glyphName="SEARCH" text="" wrappingWidth="16.714284896850586" />
+         </graphic></Button>
+      <Button layoutX="234.0" layoutY="362.0" mnemonicParsing="false" onAction="#buttModOff" prefHeight="48.0" prefWidth="113.0" styleClass="navbutton" stylesheets="@design.css" text="Modifier" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button layoutX="235.0" layoutY="423.0" mnemonicParsing="false" onAction="#buttSupOff" prefHeight="48.0" prefWidth="113.0" styleClass="navbutton" stylesheets="@design.css" text="Supprimer" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <TextField fx:id="txtNomOff" layoutX="215.0" layoutY="215.0" prefHeight="28.0" prefWidth="150.0" promptText="Nom" styleClass="textfield-record-design" stylesheets="@design.css" />
+      <TextField fx:id="txtPriOff" layoutX="215.0" layoutY="264.0" prefHeight="34.0" prefWidth="150.0" promptText="Prix" styleClass="textfield-record-design" stylesheets="@design.css" />
+      <TextField fx:id="txtRecOff" layoutX="374.0" layoutY="495.0" prefHeight="34.0" prefWidth="388.0" promptText="Rechercher" styleClass="textfield-record-design" stylesheets="@design.css" />
+      <Button layoutX="234.0" layoutY="488.0" mnemonicParsing="false" onAction="#fenAjouOff" prefHeight="48.0" prefWidth="113.0" styleClass="navbutton" stylesheets="@design.css" text="Ajouter" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIcon glyphName="PLUS" />
+         </graphic>
+      </Button>
+      <Spinner fx:id="spiDurOff" layoutX="216.0" layoutY="317.0" prefHeight="33.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>

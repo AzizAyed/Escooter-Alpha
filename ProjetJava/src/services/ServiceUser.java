@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import tools.DataSource;
 
 /**
  *
@@ -19,10 +20,10 @@ public class ServiceUser implements IserviceUser<User> {
     private static ServiceUser instance;
 
     PreparedStatement preparedstatement;
-    Connection con;
     Statement ste;
+    Connection cnx;
     public ServiceUser(){
-    con =tools.DataSource.getinstance().getCon();
+        this.cnx = DataSource.getInstance().getConnection();
     }
     
     public static ServiceUser getInstance(){
@@ -36,7 +37,7 @@ public class ServiceUser implements IserviceUser<User> {
     public void ajouter(User u) throws SQLException {
         try {
             String req = "INSERT INTO user(iduser)values(?)";
-            PreparedStatement pre = con.prepareStatement(req);
+            PreparedStatement pre = cnx.prepareStatement(req);
             pre.setInt(1,u.getIduser()); 
             pre.executeUpdate();
             

@@ -23,7 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import tn.edu.esprit.tools.DataSource;
+import tools.DataSource;
 
 public class SigninController implements Initializable {
 
@@ -36,11 +36,14 @@ public class SigninController implements Initializable {
     @FXML
     private Button login_signup;
 
-    private Connection dbConnection;
+    private final Connection dbConnection;
     @FXML
     private AnchorPane signin_form;
     @FXML
     private Hyperlink forgetpassword;
+    private Button Home;
+    @FXML
+    private Button EXIT;
 
     public SigninController() {
         // Initialize the database connection
@@ -53,14 +56,22 @@ public class SigninController implements Initializable {
     }
 
     @FXML
-    private void handleLoginButtonAction() {
+    private void handleLoginButtonAction(ActionEvent event) {
         String nom = login_username.getText();
         String password = login_password.getText();
 
         boolean validInput = isValidInput(nom) && isValidInput(password);
         boolean loginSuccess = validInput ? authenticateUser(nom, password) : false;
 
-        showAlert(validInput ? loginSuccess ? "Login successful" : "Login failed. Please check your information." : "Invalid input. Please check your data.");
+        if (loginSuccess) {
+            if (nom.equals("ramzi") && password.equals("azerqsdf")) {
+                openFXML("Home.fxml", event);
+            } else {
+                openFXML("Homeuser.fxml", event);
+            }
+        } else {
+            showAlert("Login failed. Please check your information.");
+        }
     }
 
     private boolean isValidInput(String input) {
@@ -111,12 +122,38 @@ public class SigninController implements Initializable {
         window.show();
     } 
      
-   /* @FXML
     void login_btn (ActionEvent event) throws IOException {
-        Parent view4 = FXMLLoader.load(getClass().getResource("Signin.fxml"));
+        Parent view4 = FXMLLoader.load(getClass().getResource("Home.fxml"));
         Scene scene4 = new Scene(view4);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene4);
         window.show();
-    }*/
+    }
+
+    private void Home(ActionEvent event) throws IOException {
+        if (Home.isFocused()) {
+            Parent view4 = FXMLLoader.load(getClass().getResource("Home.fxml"));
+            Scene scene4 = new Scene(view4);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene4);
+            window.show();
+        }
+    }
+
+    @FXML
+    private void EXIT(ActionEvent event) {
+        System.exit(0);
+    }
+
+    private void openFXML(String fxmlFile, ActionEvent event) {
+        try {
+            Parent view = FXMLLoader.load(getClass().getResource(fxmlFile));
+            Scene scene = new Scene(view);
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            window.setScene(scene);
+            window.show();
+        } catch (IOException ex) {
+            Logger.getLogger(SigninController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

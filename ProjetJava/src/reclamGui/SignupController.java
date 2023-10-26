@@ -23,7 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import tn.edu.esprit.tools.DataSource;
+import tools.DataSource;
 
 public class SignupController implements Initializable {
     @FXML
@@ -44,6 +44,8 @@ public class SignupController implements Initializable {
     private Button signup_signin;
     @FXML
     private AnchorPane signup_form;
+    @FXML
+    private Button EXIT;
 
     public SignupController() {
         // Initialize the database connection
@@ -183,5 +185,11 @@ public class SignupController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(SigninController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void EXIT(ActionEvent event) {
+                System.exit(0);
+
     }
 }

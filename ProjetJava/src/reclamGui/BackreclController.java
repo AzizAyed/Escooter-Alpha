@@ -31,7 +31,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -44,12 +48,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import services.ServiceReclamation;
 import services.ServiceReponse;
 import tools.DataSource;
 
 public class BackreclController implements Initializable {
-    private Connection con;
     private PreparedStatement prepare;
     private ResultSet result;
 
@@ -91,8 +95,6 @@ public class BackreclController implements Initializable {
     @FXML
     private TableColumn<Reponse, String> colonnetitre;
 
-    @FXML
-    private TableColumn<Reponse, String> contenureponse;
 
     @FXML
     private AnchorPane modifierreponse;
@@ -106,22 +108,16 @@ public class BackreclController implements Initializable {
     @FXML
     private Button navigate;
 
-    @FXML
-    private TableColumn<Reponse, String> descriptionreponse;
 
     @FXML
     private TableColumn<Reclamation, Date> date;
     @FXML
     private ComboBox<String> ComboboxTri;
     @FXML
-    private TextField titre2;
-    @FXML
     private TableColumn<Reclamation, Etat> etat;
     @FXML
     private TableColumn<Reclamation, String> description;
 
-    @FXML
-    private TextField description2;
 
     @FXML
     private TableColumn<Reclamation, String> email;
@@ -138,6 +134,19 @@ public class BackreclController implements Initializable {
 
     @FXML
     private TableColumn<Reclamation, String> titre;
+    private Connection cnx;
+    @FXML
+    private Button pdf;
+    @FXML
+    private Button Home;
+    @FXML
+    private Button GSD;
+    @FXML
+    private Button OFFRES;
+    @FXML
+    private Button LOGOUT;
+    @FXML
+    private Button DASHBOARD;
 
    @FXML
 public void supprimer(ActionEvent event) {
@@ -183,13 +192,14 @@ public void supprimer(ActionEvent event) {
 
     
 
+    @FXML
     public void EXIT() {
         System.exit(0);
     }
 
     @FXML
 public void supprimerReponse(ActionEvent event) {
-    con = DataSource.getinstance().getCon();
+        this.cnx = DataSource.getInstance().getConnection();
 
     Reponse selectedReponse = tablereponse.getSelectionModel().getSelectedItem();
 
@@ -213,7 +223,7 @@ public void supprimerReponse(ActionEvent event) {
             try {
                 int id = selectedReponse.getIdrep();
                 String sql = "DELETE FROM reponse WHERE idrep = ?";
-                try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+                try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
                     preparedStatement.setInt(1, id);
                     int lignesModifiees = preparedStatement.executeUpdate();
 
@@ -226,7 +236,6 @@ public void supprimerReponse(ActionEvent event) {
 
                 tablereponse.getItems().remove(selectedReponse);
             } catch (SQLException ex) {
-                ex.printStackTrace();
             }
         } else {
             // L'utilisateur a cliqué sur "Annuler", aucune action de suppression n'est effectuée
@@ -257,6 +266,7 @@ public void supprimerReponse(ActionEvent event) {
 
     private EmailService emailService;
 
+    @FXML
     public void ajouterReponse(ActionEvent event) throws SQLException {
     String contenuReponse = contenutext.getText();
 
@@ -269,11 +279,11 @@ public void supprimerReponse(ActionEvent event) {
         alert.setContentText("Veuillez entrer du contenu pour la réponse.");
         alert.showAndWait();
     } else {
-        con = DataSource.getinstance().getCon();
+        this.cnx = DataSource.getInstance().getConnection();
 
         String sql = "INSERT INTO reponse (contenu, idrec) VALUES (?, ?)";
 
-        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
             preparedStatement.setString(1, contenuReponse);
             preparedStatement.setInt(2, idReclamationSelectionnee);
 
@@ -291,12 +301,11 @@ public void supprimerReponse(ActionEvent event) {
 
                 afficherReponse(null);
                 marquerReclamationCommeTraitee(idReclamationSelectionnee);
-                emailService.envoyerEmail("ramzi.zargelayoun@esprit.tn", "Nouvelle Réponse à Votre Réclamation", "Une nouvelle réponse a été ajoutée à votre réclamation : " + contenuReponse);
+                emailService.envoyerEmail("medaziz.ayed@esprit.tn", "Nouvelle Réponse à Votre Réclamation", "Une nouvelle réponse a été ajoutée à votre réclamation : " + contenuReponse);
             } else {
                 System.out.println("Échec de l'envoi de la réponse .");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             System.out.println("Une erreur s'est produite lors de l'envoie de la réponse.");
         }
     }
@@ -378,9 +387,9 @@ public void repondre() {
                     selectedReponse.setContenu(nouveauContenu);
 
                     try {
-                        con = DataSource.getinstance().getCon();
+                        this.cnx = DataSource.getInstance().getConnection();
                         String sql = "UPDATE reponse SET contenu = ? WHERE idrep = ?";
-                        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+                        try (PreparedStatement preparedStatement = cnx.prepareStatement(sql)) {
                             preparedStatement.setString(1, nouveauContenu);
                             preparedStatement.setInt(2, idReponseSelectionnee);
 
@@ -403,7 +412,6 @@ public void repondre() {
                             }
                         }
                     } catch (SQLException e) {
-                        e.printStackTrace();
                         Alert alert = new Alert(Alert.AlertType.ERROR);
                         alert.setTitle("Erreur de Modification");
                         alert.setHeaderText(null);
@@ -422,11 +430,11 @@ public void repondre() {
     }
 
     private void marquerReclamationCommeTraitee(int idReclamation) {
-        con = DataSource.getinstance().getCon();
+        this.cnx = DataSource.getInstance().getConnection();
 
         try {
             String sql = "UPDATE reclamation SET etat = 'TRAITE' WHERE id = ?";
-            PreparedStatement prepare = con.prepareStatement(sql);
+            PreparedStatement prepare = cnx.prepareStatement(sql);
             prepare.setInt(1, idReclamation);
             prepare.executeUpdate();
         } catch (SQLException e) {
@@ -434,7 +442,6 @@ public void repondre() {
         }
     }
 
-@FXML
 public void filtrerReclamations() {
     String texteFiltre = filtreReclamations.getText();
     String triSelectionne = ComboboxTri.getValue(); // Obtenir la valeur sélectionnée dans le ComboBox de tri
@@ -519,15 +526,14 @@ private List<Reclamation> trierReclamations(List<Reclamation> reclamations, Stri
 }
 
 
-    @FXML
     public void afficherReponse(ActionEvent event) {
         try {
-            con = DataSource.getinstance().getCon();
-            String sql = "SELECT r.titre, r.description, reponse.contenu, reponse.idrep " +
+            this.cnx = DataSource.getInstance().getConnection();
+            String sql = "SELECT r.titre, r.description, reponse.contenu, reponse.idrep, reponse.email " +
                  "FROM reclamation r " +
                  "JOIN reponse reponse ON r.id = reponse.idrec";
 
-            PreparedStatement preparedStatement = con.prepareStatement(sql);
+            PreparedStatement preparedStatement = cnx.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             ObservableList<Reponse> observableList = FXCollections.observableArrayList();
@@ -536,6 +542,8 @@ private List<Reclamation> trierReclamations(List<Reclamation> reclamations, Stri
                 String titre = resultSet.getString("titre");
                 String description = resultSet.getString("description");
                 String contenu = resultSet.getString("contenu");
+                String email = resultSet.getString("email");
+
                 int idrep = resultSet.getInt("idrep");
                 Reponse reponse = new Reponse();
                 Reclamation reclamation = new Reclamation();
@@ -544,6 +552,8 @@ private List<Reclamation> trierReclamations(List<Reclamation> reclamations, Stri
                 reponse.setContenu(contenu);
                 reponse.setR(reclamation);
                 reponse.setIdrep(idrep);
+                reponse.setEmail(email);
+
                 observableList.add(reponse);
             }
 
@@ -634,8 +644,61 @@ public void genererPDF(ActionEvent ignored) throws FileNotFoundException {
             System.out.println("La liste des réclamations est vide.");
         }
     } catch (DocumentException | IOException e) {
-        e.printStackTrace();
+    }
+}
+@FXML
+    public void Home(ActionEvent event) throws IOException {
+        if (Home.isFocused()) {
+        Parent view4 = FXMLLoader.load(getClass().getResource("Home.fxml"));
+        Scene scene4 = new Scene(view4);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene4);
+        window.show();
+        }
+    }
+
+    @FXML
+    private void GSD(ActionEvent event) throws IOException {
+        if (GSD.isFocused()) {
+        Parent view4 = FXMLLoader.load(getClass().getResource("AjoutSta.fxml"));
+        Scene scene4 = new Scene(view4);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene4);
+        window.show();
+        }
+    }
+
+    @FXML
+    private void OFFRES(ActionEvent event) throws IOException {
+        if (OFFRES.isFocused()) {
+        Parent view4 = FXMLLoader.load(getClass().getResource("AjoutOff.fxml"));
+        Scene scene4 = new Scene(view4);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene4);
+        window.show();
+        }
+
+}
+
+    @FXML
+    private void LOGOUT(ActionEvent event) throws IOException {
+        if (LOGOUT.isFocused()) {
+        Parent view4 = FXMLLoader.load(getClass().getResource("Signin.fxml"));
+        Scene scene4 = new Scene(view4);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene4);
+        window.show();
+        }
+    }
+
+    @FXML
+    private void DASHBOARD(ActionEvent event) throws IOException {
+        if (DASHBOARD.isFocused()) {
+        Parent view4 = FXMLLoader.load(getClass().getResource("DASHBOARDRECL.fxml"));
+        Scene scene4 = new Scene(view4);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene4);
+        window.show();
     }
 }
 }
-

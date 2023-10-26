@@ -11,13 +11,17 @@ import services.ServiceUser;
 import tools.DataSource;
 import entities.TypeRec;
 import entities.Etat;
+import tools.DataSource;
+
+
 public class ProjetJava {
 
     public static void main(String[] args) throws SQLException {
         String str = "2018-03-21";
         Date date = Date.valueOf(str);
-        Connection con;
-        con = DataSource.getinstance().getCon();
+        Connection cnx;
+        
+        cnx = DataSource.getInstance().getConnection();
 
         ServiceUser SU = ServiceUser.getInstance();
         User U = new User();
@@ -58,6 +62,7 @@ public class ProjetJava {
             System.out.println(rep);
         }*/
     }
+    private Connection cnx;
 }
 
             
