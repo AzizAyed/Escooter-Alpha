@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="signup_form" prefHeight="674.0" prefWidth="1034.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Interface.SignupController">
+   <children>
+      <AnchorPane layoutX="550.0" prefHeight="674.0" prefWidth="486.0" style="-fx-background-color: #99CCFF;">
+         <children>
+            <Text layoutX="158.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up" textAlignment="CENTER" wrappingWidth="170.12646484375">
+               <font>
+                  <Font name="System Bold Italic" size="36.0" />
+               </font>
+            </Text>
+            <Text layoutX="127.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="to use all features of the application" textAlignment="CENTER" wrappingWidth="232.78759765625">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="301.0" fitWidth="310.0" layoutX="92.0" layoutY="258.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/379876323_153286387841322_5252286349824369548_n-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <Button fx:id="signup_btn" layoutX="193.0" layoutY="457.0" mnemonicParsing="false" onAction="#handleSignupButtonAction" prefHeight="48.0" prefWidth="124.0" text="Sign UP">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+      </Button>
+      <Text layoutX="157.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Account" wrappingWidth="221.396484375">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Text>
+      <Text layoutX="155.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="162.251953125">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="166.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="162.251953125">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="43.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" wrappingWidth="162.251953125">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="276.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom" wrappingWidth="162.251953125">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <Text layoutX="174.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cin" wrappingWidth="162.251953125">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="signup_nom" layoutX="36.0" layoutY="139.0" prefHeight="47.0" prefWidth="200.0" promptText="First Name" />
+      <TextField fx:id="signup_prenom" layoutX="268.0" layoutY="139.0" prefHeight="47.0" prefWidth="200.0" promptText="Last Name" />
+      <TextField fx:id="signup_cin" layoutX="157.0" layoutY="222.0" prefHeight="47.0" prefWidth="200.0" promptText="Enter your Cin" />
+      <TextField fx:id="signup_email" layoutX="155.0" layoutY="304.0" prefHeight="47.0" prefWidth="200.0" promptText="Enter your email" />
+      <TextField fx:id="signup_password" layoutX="155.0" layoutY="395.0" prefHeight="47.0" prefWidth="200.0" promptText="Enter your Password" />
+      <Button fx:id="signup_signin" layoutX="176.0" layoutY="591.0" mnemonicParsing="false" onAction="#log" prefHeight="50.0" prefWidth="162.0" text="Login">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Text layoutX="141.0" layoutY="574.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already have an account ?" textAlignment="CENTER" wrappingWidth="232.78759765625">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="107.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/358180990_1005331757566798_5870715155653772160_n-removebg-preview.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

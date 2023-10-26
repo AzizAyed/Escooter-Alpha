@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/Interface/AdminController.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>0</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/Interface/AdminController.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/Interface/SigninController.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/workshopjdbc/WorkshopJDBC.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/tn/edu/esprit/services/IService.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/Interface/Admin.fxml</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/tn/edu/esprit/services/ServicePersonne.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/tn/edu/esprit/tools/DataSource.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/Interface/Signin.fxml</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/Interface/Signin_main.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/tn/edu/esprit/entities/Personne.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/Interface/Signup_main.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/Interface/ForgetpasswordController.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/Interface/SignupController.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/Interface/Forgetpassword_main.java</file>
+            <file>file:/C:/Users/ideapadGAMING/Documents/WorkshopJDBC/src/Interface/Admin_main.java</file>
+        </group>
+    </open-files>
+</project-private>
